@@ -10,8 +10,8 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-/*      
- 
+
+        /*
         Array           ????
         Dictionary      System
         String          Name
@@ -20,9 +20,8 @@ int main(int argc, const char * argv[]) {
         Integer         Times Played
         float           Hours Played
         boolean         Finished?
+        */
         
-        
-    */
         NSMutableArray *games = [[NSMutableArray alloc] init];
         
         NSMutableDictionary *game;
@@ -30,8 +29,8 @@ int main(int argc, const char * argv[]) {
         game = [NSMutableDictionary dictionary];
         [game setObject:@"Bloodborne"
                  forKey:@"title"];
-        [game setObject:@"M"
-                 forKey:@"rating"];
+        [game setObject:[NSNumber numberWithInteger:40]
+                 forKey:@"hoursPlayed"];
         [games addObject:game];
         
         [games writeToFile:@"/tmp/games.plist"
