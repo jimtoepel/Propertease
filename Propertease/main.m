@@ -12,19 +12,17 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
 
         /*
-        Array           ????
+
         Dictionary      System
-        String          Name
-        Data
-        Date            Started
-        Integer         Times Played
-        float           Hours Played
-        boolean         Finished?
         */
         
         NSMutableArray *games = [[NSMutableArray alloc] init];
         
         NSMutableDictionary *game;
+        
+        NSArray *tags = [[NSArray alloc] initWithObjects:@"Gore", @"Hardcore", @"AAA", nil];
+        NSData *thoughts = [[NSData alloc] initWithContentsOfFile:@"/tmp/cool.txt"];
+        NSString *thoughtsString = [[NSString alloc] initWithData:thoughts encoding:NSUTF8StringEncoding];
         
         game = [NSMutableDictionary dictionary];
         [game setObject:@"Bloodborne"
@@ -35,6 +33,12 @@ int main(int argc, const char * argv[]) {
                  forKey:@"dateStarted"];
         [game setObject:[NSNumber numberWithInteger:3]
                  forKey:@"numberOfSessions"];
+        [game setObject:[NSNumber numberWithBool:1]
+                 forKey:@"complete"];
+        [game setObject:tags
+                 forKey:@"tags"];
+        [game setObject:thoughtsString
+                 forKey:@"thoughts"];
         [games addObject:game];
         
         [games writeToFile:@"/tmp/games.plist"
@@ -44,7 +48,9 @@ int main(int argc, const char * argv[]) {
         NSArray *gameList = [NSArray arrayWithContentsOfFile:@"/tmp/games.plist"];
         
         for (NSDictionary *d in gameList) {
-            NSLog(@"I started playing %@ on %@ and have spent %@ hours playing over %@ sessions.", [d objectForKey:@"title"],[d objectForKey:@"dateStarted"],[d objectForKey:@"hoursPlayed"], [d objectForKey:@"numberOfSessions"]);
+            NSLog(@"I started playing %@ on %@ and have spent %@ hours playing over %@ sessions. %@", [d objectForKey:@"title"],[d objectForKey:@"dateStarted"],[d objectForKey:@"hoursPlayed"], [d objectForKey:@"numberOfSessions"], [d objectForKey:@"complete"]);
+            NSLog(@"The tags are: %@", [d objectForKey:@"tags"]);
+            NSLog(@"The game impacted me in the following ways: %@", [d objectForKey:@"thoughts"]);
         }
         
     }
