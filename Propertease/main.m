@@ -29,8 +29,12 @@ int main(int argc, const char * argv[]) {
         game = [NSMutableDictionary dictionary];
         [game setObject:@"Bloodborne"
                  forKey:@"title"];
-        [game setObject:[NSNumber numberWithInteger:40]
+        [game setObject:[NSNumber numberWithFloat:40.5]
                  forKey:@"hoursPlayed"];
+        [game setObject:[NSDate date]
+                 forKey:@"dateStarted"];
+        [game setObject:[NSNumber numberWithInteger:3]
+                 forKey:@"numberOfSessions"];
         [games addObject:game];
         
         [games writeToFile:@"/tmp/games.plist"
@@ -40,7 +44,7 @@ int main(int argc, const char * argv[]) {
         NSArray *gameList = [NSArray arrayWithContentsOfFile:@"/tmp/games.plist"];
         
         for (NSDictionary *d in gameList) {
-            NSLog(@"I have spent %@ hours playing %@", [d objectForKey:@"hoursPlayed"],[d objectForKey:@"title"]);
+            NSLog(@"I started playing %@ on %@ and have spent %@ hours playing over %@ sessions.", [d objectForKey:@"title"],[d objectForKey:@"dateStarted"],[d objectForKey:@"hoursPlayed"], [d objectForKey:@"numberOfSessions"]);
         }
         
     }
